@@ -7,10 +7,8 @@ PLDelta = [] #list to hold all of the delta values
 delta = 0 #difference in two months PL
 last_row_PL = 0 #data value of the previous row 
 new_row_PL = 0 #data value of the current row
-#count_of_deltas = 0
 total_months = 0 #initialize the variable to count the total months in the dataset
 firstrow = True #determines if this is the first row of data, used in IF statement
-total_delta = 0 #sum of all the deltas
 netTotal = 0 #initialize the variable to count the total PL for all months
 delta_largest = 0 #initialize variable to hold largest delta
 delta_smallest = 0 #initialize variable  to hold the smallest delta
@@ -53,8 +51,7 @@ with open(finance_csv, encoding="utf-8") as csvfile:
         elif delta < delta_smallest:
             date_smallest = row[0]
             delta_smallest = delta
-        #update the total_delta
-        total_delta += delta
+        
   
 ## Calculations & Printouts
 
@@ -67,8 +64,9 @@ print(f"Total Months: {total_months}")
 print(f"Net Total P&L: ${netTotal}")
 
  # * Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
-AvgDeltaPL = total_delta/(len(PLDelta)-1)
-#print(f"Total Delta: +{total_delta}")
+#AvgDeltaPL = total_delta/(len(PLDelta)-1)
+AvgDeltaPL = sum(PLDelta)/(len(PLDelta)-1)
+#format the AvgDeltaPL to 2 decimal places
 AvgDeltaPL = round(AvgDeltaPL,2)
 print(f"Average Change: ${AvgDeltaPL}")
 
@@ -76,14 +74,14 @@ print(f"Average Change: ${AvgDeltaPL}")
  # * The greatest increase in profits (date and amount) over the entire period
 greatest_increase = max(PLDelta)
 
-print(f"Greatest increase in profits: {greatest_increase}")
-print(f"Greatest increase in profits2: {delta_largest}")
-print(f"Greatest increase date: {date_largest}")
+print(f"Greatest increase in profits: {date_largest} ${greatest_increase}")
+#print(f"Greatest increase in profits2: {delta_largest}")
+#print(f"Greatest increase date: {date_largest}")
 #* The greatest decrease in losses (date and amount) over the entire period
 greatest_decrease = min(PLDelta)
-print(f"Greatest decrease in losses: {greatest_decrease}")
-print(f"Greatest decrease in profits2: {delta_smallest}")
-print(f"Greatest decrease date: {date_smallest}")
+print(f"Greatest decrease in losses: {date_smallest} ${greatest_decrease}")
+#print(f"Greatest decrease in profits2: {delta_smallest}")
+#print(f"Greatest decrease date: {date_smallest}")
 print("------------------")
 
 ## write to txt in analysis folder
@@ -99,6 +97,6 @@ with open(output_path,'w') as file_object:
     print(f"Total Months: {total_months}",file=file_object)
     print(f"Net Total P&L: ${netTotal}",file=file_object)
     print(f"Average Change: ${AvgDeltaPL}",file=file_object)
-    print(f"Greatest increase in profits: {greatest_increase}",file=file_object)
-    print(f"Greatest decrease in losses: {greatest_decrease}",file=file_object)
+    print(f"Greatest increase in profits: {date_largest} ${greatest_increase}",file=file_object)
+    print(f"Greatest decrease in losses: {date_smallest} ${greatest_decrease}",file=file_object)
     print("------------------",file=file_object)
