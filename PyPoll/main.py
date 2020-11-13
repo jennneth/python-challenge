@@ -37,17 +37,25 @@ import os
 import csv
 
 ## Create and initialize variables
-PLDelta = [] #list to hold all of the delta values
-delta = 0 #difference in two months PL
-last_row_PL = 0 #data value of the previous row 
-new_row_PL = 0 #data value of the current row
-total_months = 0 #initialize the variable to count the total months in the dataset
-firstrow = True #determines if this is the first row of data, used in IF statement
-netTotal = 0 #initialize the variable to count the total PL for all months
-delta_largest = 0 #initialize variable to hold largest delta
-delta_smallest = 0 #initialize variable  to hold the smallest delta
-date_largest = 0 #initialize the variable to hold the month of the largest delta
-date_smallest = 0 #initialize the variable to hold the month of the smallest delta
+total_votes = 0 #total votes cast
+all_candidates= []  #list of all candidates
+unique_candidates = [] #list of unique candidates
+khan_votes = 0 #number of votes for Khan
+correy_votes = 0 #number of votes for correy
+li_votes = 0 #number of votes for Li
+otool_votes = 0 #number of votes for O'Tooley
+khan_perc = 0 #percentage of votes for Khan
+correy_perc = 0 #percentage of votes for correy
+li_perc = 0 #perc of votes for Li
+otool_perc = 0 #percentage of votes for O'Tooley
+
+#this module whittles down the list of candidates to unique candidates
+def get_unique(candidates):
+    unique = []
+    for candidate in candidates:
+        if candidate not in unique:
+            unique.append(candidate)
+    return unique
 
 ## read csv file
 vote_csv = os.path.join('.', 'Resources', 'election_data.csv')
@@ -57,45 +65,42 @@ with open(vote_csv, encoding="utf-8") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
     #since there is a header row, skip reading the first row into the lists
     csv_header = next(csvreader)
-    # Loop through reading the file and building lists to hold the data
+    # Loop through reading the file and take appropriate action
     for row in csvreader:
-        #increment the counter for the total number of months
-        total_months += 1
-        #add each rows PL value to the netTotal counter
-        netTotal += int(row[1])
-        #calculate the changes in PL
-        #skip the first DATA row PLdelta calculation since it would skew the average, and store the last row DATA in variable
-        if firstrow:
-            last_row_PL = int(row[1])
-            firstrow = False
-        else:
-            #store what is now the previous row's P&L for purposes of calculation
-            last_row_PL = new_row_PL
-        # exit the IF statement
-        #assign the current row's P&L to variable
-        new_row_PL=int(row[1])
-        #calculate the change in P&L
-        delta = new_row_PL - last_row_PL
-        #Add the delta calculation to the end of the list PLDelta
-        PLDelta.append(delta)
-        #If the delta is the biggest or the smallest, store that number and store the date.
-        if delta > delta_largest:
-            date_largest = row[0]
-            delta_largest = delta
-        elif delta < delta_smallest:
-            date_smallest = row[0]
-            delta_smallest = delta
+        #increment the counter for the total number of votes
+        total_votes += 1
+        #add the candidate to the all candidate list
+        all_candidates.append(row[2])
+        #count who the vote is for
+        if row[2] = "Khan":
+            khan_votes += 1
+        elif row[2] = "Correy":
+            correy_votes += 1
+        elif row[2] = "Li":
+            li_votes += 1
+        elif row[2] = "O'Tooley":
+            otool_votes += 1
+        #end of if statement
+         
+    unique_candidates = get_unique(all_candidates)
+    print(f"List of all candidates: {unique_candidates}")
         
   
 ## Calculations & Printouts
 
 print("------------------")
-print("Financial Analysis")
+print("Election Results")
 print("------------------")
 #* The total number of months included in the dataset
-print(f"Total Months: {total_months}")
-#* The net total amount of "Profit/Losses" over the entire period
-print(f"Net Total P&L: ${netTotal}")
+print(f"Total Votes: {total_votes}")
+print("------------------")
+#* Votes percentage and raw count per candidate
+
+khan_perc = khan_votes/total_votes
+correy_perc = 0 #percentage of votes for correy
+li_perc = 0 #perc of votes for Li
+otool_perc = 0 #percentage of votes for O'Tooley
+print(f"Khan: ${netTotal}")
 
  # * Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
 #AvgDeltaPL = total_delta/(len(PLDelta)-1)
