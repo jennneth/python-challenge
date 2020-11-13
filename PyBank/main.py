@@ -3,15 +3,14 @@ import os
 import csv
 
 ## Create and initialize variables
-PLDelta = []
+PLDelta = [] #list to hold all of the delta values
 delta = 0 #difference in two months PL
-MyList = []
 last_row_PL = 0 #data value of the previous row 
 new_row_PL = 0 #data value of the current row
-count_of_deltas = 0
+#count_of_deltas = 0
 total_months = 0 #initialize the variable to count the total months in the dataset
 firstrow = True #determines if this is the first row of data, used in IF statement
-total_delta = 0
+total_delta = 0 #sum of all the deltas
 netTotal = 0 #initialize the variable to count the total PL for all months
 delta_largest = 0 #initialize variable to hold largest delta
 delta_smallest = 0 #initialize variable  to hold the smallest delta
@@ -57,12 +56,14 @@ with open(finance_csv, encoding="utf-8") as csvfile:
         #update the total_delta
         total_delta += delta
   
-## Calculations
-#* The total number of months included in the dataset
+## Calculations & Printouts
+
 print("------------------")
 print("Financial Analysis")
 print("------------------")
+#* The total number of months included in the dataset
 print(f"Total Months: {total_months}")
+#* The net total amount of "Profit/Losses" over the entire period
 print(f"Net Total P&L: ${netTotal}")
 
  # * Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
