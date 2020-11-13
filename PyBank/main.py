@@ -2,18 +2,19 @@
 import os
 import csv
 
-## Create lists to store the data
+## Create and initialize variables
 PLDelta = []
 delta = 0
-Date = []
-PL = []
+# FRI del Date = []
+# FRI del PL = []
 MyList = []
 last_row_PL = 0
 new_row_PL = 0
 count_of_deltas = 0
-total_months = 0
+total_months = 0 #initialize the variable to count the total months in the dataset
 firstrow = True
 total_delta = 0
+netTotal = 0 #initialize the variable to count the total PL for all months
 
 ## read csv file
 finance_csv = os.path.join('.', 'Resources', 'budget_data.csv')
@@ -24,13 +25,14 @@ with open(finance_csv, encoding="utf-8") as csvfile:
     #since there is a header row, skip reading the first row into the lists
     csv_header = next(csvreader)
     #initialize the net total of Profit and Losses variable
-    netTotal = 0
+    # FRI get rid of this netTotal = 0
     # Loop through reading the file and building lists to hold the data
     for row in csvreader:
         #Date.append(row[0])
         #PL.append(int(row[1]))
         #increment the counter for the total number of months
         total_months += 1
+        #add each rows PL value to the netTotal counter
         netTotal += int(row[1])
         #calculate the changes in PL
         #skip the first DATA row calculation since it would skew the average, but do store the last_row_PL
@@ -46,15 +48,11 @@ with open(finance_csv, encoding="utf-8") as csvfile:
         #calculate the change in P&L
         delta = new_row_PL - last_row_PL
         #Append to list with Date, Delta
-        Date.append(row[0])
+        # FRI del: Date.append(row[0])
         PLDelta.append(delta)
         #update the total_delta
         total_delta += delta
-        
-        
-        
-        
-
+  
 ## Calculations
 #* The total number of months included in the dataset
 print("------------------")
