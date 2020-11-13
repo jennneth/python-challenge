@@ -72,13 +72,13 @@ with open(vote_csv, encoding="utf-8") as csvfile:
         #add the candidate to the all candidate list
         all_candidates.append(row[2])
         #count who the vote is for
-        if row[2] = "Khan":
+        if row[2] == "Khan":
             khan_votes += 1
-        elif row[2] = "Correy":
+        elif row[2] == "Correy":
             correy_votes += 1
-        elif row[2] = "Li":
+        elif row[2] == "Li":
             li_votes += 1
-        elif row[2] = "O'Tooley":
+        elif row[2] == "O'Tooley":
             otool_votes += 1
         #end of if statement
          
@@ -101,31 +101,10 @@ khan_perc = round((khan_votes/total_votes)*100,3)
 correy_perc = round((correy_votes/total_votes)*100,3)
 li_perc = round((li_votes/total_votes)*100,3)
 otool_perc = round((otool_votes/total_votes)*100,3)
-print(f"Khan: {khan_perc} (khan_votes}")
+print(f"Khan: {khan_perc} {khan_votes}")
 print(f"Correy: {correy_perc} {correy_votes}")
 print(f"Li: {li_perc} {li_votes}")
 print(f"O'Toole: {otool_perc} {otool_votes}")
-
- # * Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
-#AvgDeltaPL = total_delta/(len(PLDelta)-1)
-AvgDeltaPL = sum(PLDelta)/(len(PLDelta)-1)
-#format the AvgDeltaPL to 2 decimal places
-AvgDeltaPL = round(AvgDeltaPL,2)
-print(f"Average Change: ${AvgDeltaPL}")
-
-
- # * The greatest increase in profits (date and amount) over the entire period
-greatest_increase = max(PLDelta)
-
-print(f"Greatest increase in profits: {date_largest} ${greatest_increase}")
-#print(f"Greatest increase in profits2: {delta_largest}")
-#print(f"Greatest increase date: {date_largest}")
-#* The greatest decrease in losses (date and amount) over the entire period
-greatest_decrease = min(PLDelta)
-print(f"Greatest decrease in losses: {date_smallest} ${greatest_decrease}")
-#print(f"Greatest decrease in profits2: {delta_smallest}")
-#print(f"Greatest decrease date: {date_smallest}")
-print("------------------")
 
 ## write to txt in analysis folder
 # Specify the file to write to
@@ -135,11 +114,4 @@ output_path = os.path.join(".", "Analysis", "analysis.txt")
 #text_file = open(output_path, 'w') #as csvfile:
 with open(output_path,'w') as file_object:
     print("------------------",file=file_object)
-    print("Financial Analysis",file=file_object)
-    print("------------------",file=file_object)
-    print(f"Total Months: {total_months}",file=file_object)
-    print(f"Net Total P&L: ${netTotal}",file=file_object)
-    print(f"Average Change: ${AvgDeltaPL}",file=file_object)
-    print(f"Greatest increase in profits: {date_largest} ${greatest_increase}",file=file_object)
-    print(f"Greatest decrease in losses: {date_smallest} ${greatest_decrease}",file=file_object)
-    print("------------------",file=file_object)
+    
