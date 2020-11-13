@@ -94,13 +94,17 @@ print("------------------")
 #* The total number of months included in the dataset
 print(f"Total Votes: {total_votes}")
 print("------------------")
-#* Votes percentage and raw count per candidate
 
-khan_perc = khan_votes/total_votes
-correy_perc = 0 #percentage of votes for correy
-li_perc = 0 #perc of votes for Li
-otool_perc = 0 #percentage of votes for O'Tooley
-print(f"Khan: ${netTotal}")
+#* Votes percentage and raw count per candidate
+#calculate & format percentage votes for each candidate
+khan_perc = round((khan_votes/total_votes)*100,3)
+correy_perc = round((correy_votes/total_votes)*100,3)
+li_perc = round((li_votes/total_votes)*100,3)
+otool_perc = round((otool_votes/total_votes)*100,3)
+print(f"Khan: {khan_perc} (khan_votes}")
+print(f"Correy: {correy_perc} {correy_votes}")
+print(f"Li: {li_perc} {li_votes}")
+print(f"O'Toole: {otool_perc} {otool_votes}")
 
  # * Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
 #AvgDeltaPL = total_delta/(len(PLDelta)-1)
