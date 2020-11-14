@@ -40,15 +40,8 @@ import csv
 total_votes = 0 #total votes cast
 all_candidates= []  #list of all candidates
 unique_candidates = [] #list of unique candidates
-khan_votes = 0 #number of votes for Khan
-correy_votes = 0 #number of votes for correy
-li_votes = 0 #number of votes for Li
-otool_votes = 0 #number of votes for O'Tooley
-khan_perc = 0 #percentage of votes for Khan
-correy_perc = 0 #percentage of votes for correy
-li_perc = 0 #perc of votes for Li
-otool_perc = 0 #percentage of votes for O'Tooley
-read_data= {}
+winner_count = 0 #calculate the largest vote count
+winner_name = "" #store the name of the candidate with the highest vote count
 
 #this module whittles down the list of candidates to unique candidates
 def get_unique(candidates):
@@ -91,7 +84,11 @@ with open(vote_csv, encoding="utf-8") as csvfile:
             if x == name:
                 vote_count += 1
             vote_perc = round((vote_count/total_votes*100),3)
+            if vote_count > winner_count:
+                winner_count = vote_count
+                winner_name = name
         print(f"Candidate: {name} Percentage of Vote: {vote_perc}% {vote_count}")
+    print(f"Winner: {winner_name}")
          
     
         
