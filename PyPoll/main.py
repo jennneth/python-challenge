@@ -44,9 +44,6 @@ winner_name = "" #store the name of the candidate with the highest vote count
 line_break = "--------------------" #stored as a variable for ease of reuse
 print_list = [] #list of items to print to text file
 
-# Specify the file to write to
-output_path = os.path.join(".", "Analysis", "analysis.txt")
-
 #this function whittles down the list of candidates to unique candidates
 def get_unique(candidates):
     unique = []
@@ -77,6 +74,7 @@ with open(vote_csv, encoding="utf-8") as csvfile:
     print(line_break)
     print("Election Results")
     print(line_break)
+    #add the same to a list that will be printed to the text file
     print_list.append("\n"+line_break)
     print_list.append("\nElection Results")
     print_list.append("\n"+line_break)
@@ -101,11 +99,11 @@ with open(vote_csv, encoding="utf-8") as csvfile:
                 #exit the if statement
             #while we are still on this unique candidate name, calculate the percentage of votes    
             vote_perc = vote_count/total_votes*100
-            
+            #identify if this candidate has the largest vote count, and if so mark them as the winner
             if vote_count > winner_count:
                 winner_count = vote_count
                 winner_name = name
-        vote_perc_format = "{:.3f}".format(vote_perc)
+        vote_perc_format = "{:.3f}".format(vote_perc) #format as per the sample output with 3 decimals
         print(f"Candidate: {name}     Percentage of Vote: {vote_perc_format}%     Vote Count: {vote_count}")
         print_list.append("\nCandidate: "+name+"     Percentage of Vote: "+str(vote_perc_format)+"%     Vote Count: "+str(vote_count))
     print(line_break)
@@ -115,7 +113,8 @@ with open(vote_csv, encoding="utf-8") as csvfile:
     print(line_break)
     print_list.append("\n"+line_break)
 
-
+# Specify the file to write to
+output_path = os.path.join(".", "Analysis", "analysis.txt")
 
 # Open the file using "write" mode. Specify the variable to hold the contents
 with open(output_path,'w') as file_object:
