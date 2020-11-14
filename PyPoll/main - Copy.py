@@ -48,7 +48,6 @@ khan_perc = 0 #percentage of votes for Khan
 correy_perc = 0 #percentage of votes for correy
 li_perc = 0 #perc of votes for Li
 otool_perc = 0 #percentage of votes for O'Tooley
-read_data= {}
 
 #this module whittles down the list of candidates to unique candidates
 def get_unique(candidates):
@@ -72,28 +71,19 @@ with open(vote_csv, encoding="utf-8") as csvfile:
         total_votes += 1
         #add the candidate to the all candidate list
         all_candidates.append(row[2])
-        
-    #condense the list of candidates to a unique list of candidates
-    unique_candidates = get_unique(all_candidates)
-    print(f"List of candidates: {unique_candidates}")   
-
-    print("------------------")
-    print("Election Results")
-    print("------------------")
-    #* The total number of months included in the dataset
-    print(f"Total Votes: {total_votes}")
-    print("------------------")
-
-    for name in unique_candidates:
-        vote_count = 0
-        vote_perc = 0
-        for x in all_candidates:
-            if x == name:
-                vote_count += 1
-            vote_perc = round((vote_count/total_votes*100),3)
-        print(f"Candidate: {name} Percentage of Vote: {vote_perc}% {vote_count}")
+        #count who the vote is for
+        if row[2] == "Khan":
+            khan_votes += 1
+        elif row[2] == "Correy":
+            correy_votes += 1
+        elif row[2] == "Li":
+            li_votes += 1
+        elif row[2] == "O'Tooley":
+            otool_votes += 1
+        #end of if statement
          
-    
+    unique_candidates = get_unique(all_candidates)
+    print(f"List of all candidates: {unique_candidates}")
         
   
 ## Calculations & Printouts
@@ -111,10 +101,10 @@ khan_perc = round((khan_votes/total_votes)*100,3)
 correy_perc = round((correy_votes/total_votes)*100,3)
 li_perc = round((li_votes/total_votes)*100,3)
 otool_perc = round((otool_votes/total_votes)*100,3)
-print(f"Khan: {khan_perc}% {khan_votes}")
-print(f"Correy: {correy_perc}% {correy_votes}")
-print(f"Li: {li_perc}% {li_votes}")
-print(f"O'Toole: {otool_perc}% {otool_votes}")
+print(f"Khan: {khan_perc} {khan_votes}")
+print(f"Correy: {correy_perc} {correy_votes}")
+print(f"Li: {li_perc} {li_votes}")
+print(f"O'Toole: {otool_perc} {otool_votes}")
 
 ## write to txt in analysis folder
 # Specify the file to write to
