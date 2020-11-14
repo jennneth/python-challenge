@@ -1,4 +1,3 @@
-#copied code from PyBank, will modify
 #PyPoll program
 #*************   Assignment:    ***********************
 #  In this challenge, you are tasked with helping a small, rural town modernize its vote counting process.
@@ -42,8 +41,8 @@ all_candidates= []  #list of all candidates
 unique_candidates = [] #list of unique candidates
 winner_count = 0 #calculate the largest vote count
 winner_name = "" #store the name of the candidate with the highest vote count
-line_break = "--------------------"
-print_list = []
+line_break = "--------------------" #stored as a variable for ease of reuse
+print_list = [] #list of items to print to text file
 
 # Specify the file to write to
 output_path = os.path.join(".", "Analysis", "analysis.txt")
