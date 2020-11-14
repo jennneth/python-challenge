@@ -42,9 +42,13 @@ all_candidates= []  #list of all candidates
 unique_candidates = [] #list of unique candidates
 winner_count = 0 #calculate the largest vote count
 winner_name = "" #store the name of the candidate with the highest vote count
-line_break = "--------------"
+line_break = "--------------------"
+print_list = []
 
-#this module whittles down the list of candidates to unique candidates
+# Specify the file to write to
+output_path = os.path.join(".", "Analysis", "analysis.txt")
+
+#this function whittles down the list of candidates to unique candidates
 def get_unique(candidates):
     unique = []
     for candidate in candidates:
@@ -69,59 +73,53 @@ with open(vote_csv, encoding="utf-8") as csvfile:
         
     #condense the list of candidates to a unique list of candidates
     unique_candidates = get_unique(all_candidates)
-    print(f"List of candidates: {unique_candidates}")   
-
+    
+    #print to terminal the header of the report
     print(line_break)
     print("Election Results")
     print(line_break)
-    #* The total number of months included in the dataset
+    print_list.append("\n"+line_break)
+    print_list.append("\nElection Results")
+    print_list.append("\n"+line_break)
+    
+    #* The total number of votes counted
     print(f"Total Votes: {total_votes}")
-    print("------------------")
-
+    print_list.append("\n"+ "Total Votes: " +str(total_votes))
+    print(line_break)
+    print_list.append("\n"+line_break)
+    
+    #for each unique candidate 
     for name in unique_candidates:
+        #initialize counters for this candidate
         vote_count = 0
         vote_perc = 0
+        #loop through all of the data stored in all_candidates (remember we loaded each row so a name = 1 vote)
         for x in all_candidates:
+            #if the name in all candidates matches the unique candidate name we are looking at
             if x == name:
+                #increment the vote count
                 vote_count += 1
-            vote_perc = round((vote_count/total_votes*100),6)
+                #exit the if statement
+            #while we are still on this unique candidate name, calculate the percentage of votes    
+            vote_perc = vote_count/total_votes*100
+            
             if vote_count > winner_count:
                 winner_count = vote_count
                 winner_name = name
-        print(f"Candidate: {name} Percentage of Vote: {vote_perc}% {vote_count}")
+        vote_perc_format = "{:.3f}".format(vote_perc)
+        print(f"Candidate: {name}     Percentage of Vote: {vote_perc_format}%     Vote Count: {vote_count}")
+        print_list.append("\nCandidate: "+name+"     Percentage of Vote: "+str(vote_perc_format)+"%     Vote Count: "+str(vote_count))
     print(line_break)
-    print(f"Winner: {winner_name}")
+    print_list.append("\n"+line_break)
+    print(f"Winner: {winner_name} !!!!!")
+    print_list.append("\nWinner: "+winner_name)
     print(line_break)
-         
-    
-        
-  
-## Calculations & Printouts
+    print_list.append("\n"+line_break)
 
-print("------------------")
-print("Election Results")
-print("------------------")
-#* The total number of months included in the dataset
-print(f"Total Votes: {total_votes}")
-print("------------------")
 
-#* Votes percentage and raw count per candidate
-#calculate & format percentage votes for each candidate
-khan_perc = round((khan_votes/total_votes)*100,3)
-correy_perc = round((correy_votes/total_votes)*100,3)
-li_perc = round((li_votes/total_votes)*100,3)
-otool_perc = round((otool_votes/total_votes)*100,3)
-print(f"Khan: {khan_perc}% {khan_votes}")
-print(f"Correy: {correy_perc}% {correy_votes}")
-print(f"Li: {li_perc}% {li_votes}")
-print(f"O'Toole: {otool_perc}% {otool_votes}")
-
-## write to txt in analysis folder
-# Specify the file to write to
-output_path = os.path.join(".", "Analysis", "analysis.txt")
 
 # Open the file using "write" mode. Specify the variable to hold the contents
-#text_file = open(output_path, 'w') #as csvfile:
 with open(output_path,'w') as file_object:
-    print("------------------",file=file_object)
+        file_object.writelines(print_list)
+
     
