@@ -42,6 +42,7 @@ all_candidates= []  #list of all candidates
 unique_candidates = [] #list of unique candidates
 winner_count = 0 #calculate the largest vote count
 winner_name = "" #store the name of the candidate with the highest vote count
+line_break = "--------------"
 
 #this module whittles down the list of candidates to unique candidates
 def get_unique(candidates):
@@ -70,9 +71,9 @@ with open(vote_csv, encoding="utf-8") as csvfile:
     unique_candidates = get_unique(all_candidates)
     print(f"List of candidates: {unique_candidates}")   
 
-    print("------------------")
+    print(line_break)
     print("Election Results")
-    print("------------------")
+    print(line_break)
     #* The total number of months included in the dataset
     print(f"Total Votes: {total_votes}")
     print("------------------")
@@ -83,12 +84,14 @@ with open(vote_csv, encoding="utf-8") as csvfile:
         for x in all_candidates:
             if x == name:
                 vote_count += 1
-            vote_perc = round((vote_count/total_votes*100),3)
+            vote_perc = round((vote_count/total_votes*100),6)
             if vote_count > winner_count:
                 winner_count = vote_count
                 winner_name = name
         print(f"Candidate: {name} Percentage of Vote: {vote_perc}% {vote_count}")
+    print(line_break)
     print(f"Winner: {winner_name}")
+    print(line_break)
          
     
         
